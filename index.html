@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Nur Lintang</title>
+    <style>
+        /* Reset CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --text-color: #333;
+            --text-light: #fff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body { background-color: #f5f5f5; color: var(--text-color); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background-color: var(--primary-color); color: var(--text-light); position: fixed; width: 100%; top:0; z-index:1000; box-shadow: var(--shadow);}
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .nav-links { display: flex; list-style: none; }
+        .nav-links li { margin-left: 2rem; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 500; transition: var(--transition); padding: 0.5rem 0; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--secondary-color); }
+        .hamburger { display: none; cursor: pointer; }
+
+        /* Halaman */
+        .page { min-height: 100vh; padding-top: 80px; display: none; }
+        .page.active { display: block; }
+
+        /* Hero */
+        .hero { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; height: 100vh; display:flex; align-items:center; justify-content:center; text-align:center; color:white; }
+        .hero-content { position: relative; z-index: 2; }
+        .profile-photo { width:200px; height:200px; border-radius:50%; border:5px solid var(--secondary-color); margin:0 auto 2rem; overflow:hidden; box-shadow: var(--shadow);}
+        .profile-photo img { width:100%; height:100%; object-fit:cover; }
+        .hero-content h1 { font-size:3rem; margin-bottom:1rem;}
+        .hero-content p { font-size:1.2rem; max-width:600px; margin:0 auto 2rem;}
+        .btn { display:inline-block; background-color: var(--secondary-color); color:white; padding:0.8rem 1.5rem; border-radius:5px; text-decoration:none; font-weight:bold; transition: var(--transition);}
+        .btn:hover { background-color:#2980b9;}
+
+        /* Tentang */
+        #tentang { background-color: var(--light-color); padding:4rem 0; }
+        .about-content { display:flex; flex-wrap:wrap; justify-content: space-between; align-items:center; }
+        .profile-image { flex:1; min-width:300px; text-align:center; margin-bottom:2rem; }
+        .profile-image img { width:250px; height:250px; border-radius:50%; object-fit:cover; border:5px solid var(--secondary-color); box-shadow: var(--shadow);}
+        .about-text { flex:2; min-width:300px; padding:0 2rem; }
+        .about-text h1 { font-size:2.5rem; margin-bottom:1rem; color:var(--primary-color);}
+        .about-text p { margin-bottom:1rem; }
+
+        /* Projek */
+        #projek { background-color:#fff; padding:4rem 0; }
+        .section-title { text-align:center; margin-bottom:3rem; font-size:2.5rem; color:var(--primary-color);}
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:2rem; }
+        .project-card { background:#fff; border-radius:8px; overflow:hidden; box-shadow: var(--shadow); transition: var(--transition);}
+        .project-card:hover { transform: translateY(-10px); box-shadow:0 10px 20px rgba(0,0,0,0.15);}
+        .project-image { height:200px; overflow:hidden; }
+        .project-image img { width:100%; height:100%; object-fit:cover; transition: var(--transition);}
+        .project-card:hover .project-image img { transform: scale(1.1); }
+        .project-info { padding:1.5rem; }
+        .project-info h3 { margin-bottom:0.5rem; color:var(--primary-color);}
+        .project-info p { color:#666; font-size:0.9rem;}
+
+        /* Kontak */
+        #kontak { background-color: var(--light-color); padding:4rem 0; }
+        .contact-content { display:flex; flex-wrap:wrap; justify-content:space-between;}
+        .contact-info { flex:1; min-width:300px; margin-bottom:2rem;}
+        .contact-info h3 { margin-bottom:1.5rem; color: var(--primary-color);}
+        .contact-item { display:flex; align-items:center; margin-bottom:1rem;}
+        .contact-item i { margin-right:1rem; color: var(--secondary-color);}
+        .social-links { display:flex; margin-top:1rem;}
+        .social-links a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; background-color: var(--primary-color); color:white; border-radius:50%; margin-right:1rem; transition: var(--transition);}
+        .social-links a:hover { background-color: var(--secondary-color); transform:translateY(-3px);}
+        .contact-form { flex:1; min-width:300px; padding-left:2rem; }
+        .form-group { margin-bottom:1.5rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; font-weight:500;}
+        .form-group input, .form-group textarea { width:100%; padding:0.75rem; border:1px solid #ddd; border-radius:4px; font-size:1rem; transition: var(--transition);}
+        .form-group input:focus, .form-group textarea:focus { outline:none; border-color: var(--secondary-color); box-shadow:0 0 0 2px rgba(52,152,219,0.2);}
+        .btn-form { display:inline-block; background-color: var(--secondary-color); color:white; padding:0.75rem 1.5rem; border:none; border-radius:4px; cursor:pointer; font-size:1rem; font-weight:500; transition: var(--transition);}
+        .btn-form:hover { background-color:#2980b9; transform:translateY(-2px); }
+
+        /* Footer */
+        footer { background-color: var(--primary-color); color:var(--text-light); text-align:center; padding:2rem 0; margin-top:2rem; }
+
+        /* Responsif */
+        @media(max-width:768px){
+            .hamburger { display:block; }
+            .nav-links { position: fixed; top:70px; right:-100%; background-color: var(--primary-color); width:100%; height: calc(100vh-70px); flex-direction:column; align-items:center; justify-content:flex-start; padding-top:2rem; transition: var(--transition);}
+            .nav-links.active { right:0;}
+            .nav-links li { margin:1.5rem 0;}
+            .about-content, .contact-content { flex-direction:column; }
+            .contact-form { padding-left:0; margin-top:2rem; }
+            .hero-content h1 { font-size:2rem; }
+            .hero-content p { font-size:1rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Portofolio</div>
+                <ul class="nav-links">
+                    <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                    <li><a href="#tentang" class="nav-link" data-page="tentang">Tentang</a></li>
+                    <li><a href="#projek" class="nav-link" data-page="projek">Projek</a></li>
+                    <li><a href="#kontak" class="nav-link" data-page="kontak">Kontak</a></li>
+                </ul>
+                <div class="hamburger"><i class="fas fa-bars"></i></div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero / Profil -->
+    <section id="home" class="page active">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="profile-photo">
+                    <img src="740773ae-b491-49a1-89eb-e2fb855db04a.jpg" alt="Foto Profil">
+                </div>
+                <h1>aril wahab.</h1>
+                <p>Web Developer yang fokus membuat website modern, responsif, dan user-friendly.</p>
+                <a href="#" class="btn nav-link" data-page="projek">Lihat Projek</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang -->
+    <section id="tentang" class="page">
+        <div class="container">
+            <div class="about-content">
+                <div class="profile-image">
+                    <img src="d56a7967-80a0-4e1b-b949-772c91683a83.jpg" alt="Foto Profil">
+                </div>
+                <div class="about-text">
+                    <h1>Halo, Saya aril wahab</h1>
+                    <p>Saya seorang web developer yang senang membangun website modern, responsif, dan user-friendly.</p>
+                    <p>Saya berpengalaman dalam front-end, UI/UX, dan teknologi berbasis cloud.</p>
+                    <p>Saya juga senang belajar hal baru dan berkolaborasi dalam tim untuk menciptakan solusi digital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projek -->
+    <section id="projek" class="page">
+        <div class="container">
+            <h2 class="section-title">Projek Saya</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image"><img src="download (3).jpg" alt="Sistem Informasi Sekolah"></div>
+                    <div class="project-info">
+                        <h3>Eksplorasi Dinamika Kehidupan Perkotaan</h3>
+                        <p>Transformasi Perkotaan di Era Digital
+Perkembangan teknologi digital telah membawa perubahan signifikan dalam tata kelola dan kehidupan perkotaan. Smart city bukan lagi sekadar wacana, tetapi sudah menjadi kenyataan di banyak kota besar di Indonesia.
+
+Penerapan teknologi dalam berbagai aspek seperti transportasi, pelayanan publik, dan pengelolaan sumber daya telah meningkatkan efisiensi dan kualitas hidup masyarakat urban.
+
+Dampak Positif Digitalisasi Perkotaan:
+Pelayanan publik yang lebih efisien dan transparan
+Sistem transportasi yang terintegrasi
+Pengelolaan energi dan sumber daya yang lebih baik
+Peningkatan partisipasi masyarakat dalam pembangunan kota
+Transformasi digital perkotaan terus berkembang dengan penerapan Internet of Things (IoT), artificial intelligence, dan big data analytics untuk menciptakan kota yang lebih cerdas dan efisien</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image"><img src="images.jpg" alt="Aplikasi Presensi"></div>
+                    <div class="project-info">
+                        <h3>Website Resmi PDAM</h3>
+                        <p>Makassar - PDAM Makassar mengungkap 2 Instalasi Pengelolaan Air (IPA) kini sudah kembali beroperasi usai hujan turun 2 hari terakhir. Kedua IPA yakni IPA 2 dan IPA 3 sudah kembali memproduksi air bersih. "Baru dua (kembali beroperasi), IPA 2 sama IPA 3," ujar Direktur Utama PDAM Makassar Beni Iskandar kepada detikSulsel, Rabu (25/10/2023). Benny mengatakan kedua IPA tersebut sudah kembali beroperasi meski belum sepenuhnya normal. Dia menyebut satu IPA masih dalam tahap normalisasi. Baca artikel detiksulsel, "PDAM Makassar Ungkap 2 IPA Kembali Produksi Air Usai 2 Hari Hujan" selengkapnya https://www.detik.com/sulsel/berita/d-7001478/pdam-makassar-ungkap-2-ipa-kembali-produksi-air-usai-2-hari-hujan. </p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image"><img src="smart-vision-glasses.jpg" alt="Website Portofolio"></div>
+                    <div class="project-info">
+                        <h3>SmartVision Glasses</h3>
+                        <p>SmartVision Glasses adalah terobosan terbaru dalam teknologi wearable yang menggabungkan fungsi kacamata biasa dengan kemampuan augmented reality.
+
+Dengan desain elegan dan teknologi canggih, SmartVision Glasses memberikan pengalaman pengguna yang tak tertandingi. Tampilkan informasi digital langsung di lensa Anda, terjemahkan bahasa asing secara real-time, navigasi jalanan, dan masih banyak lagi.
+
+Dikembangkan oleh tim engineer dan desainer terbaik, SmartVision Glasses tidak hanya fungsional tetapi juga nyaman digunakan sepanjang hari dengan baterai yang tahan hingga 18 jam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="page">
+        <div class="container">
+            <h2 class="section-title">Hubungi Saya</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><span>email@example.com</span></div>
+                    <div class="contact-item"><i class="fas fa-phone"></i><span>+62 812 3456 7890</span></div>
+                    <div class="social-links">
+                       <a href="https://www.instagram.com/linzhr_" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://github.com/nurlintang01" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group"><label>Nama</label><input type="text" required></div>
+                        <div class="form-group"><label>Email</label><input type="email" required></div>
+                        <div class="form-group"><label>Pesan</label><textarea rows="5" required></textarea></div>
+                        <button type="submit" class="btn-form">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 aril wahab. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            const hamburger = document.querySelector('.hamburger');
+            const navLinksContainer = document.querySelector('.nav-links');
+
+            function setActivePage(pageId){
+                pages.forEach(page => page.classList.remove('active'));
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.getElementById(pageId).classList.add('active');
+                document.querySelector(`.nav-link[data-page="${pageId}"]`).classList.add('active');
+                if(navLinksContainer.classList.contains('active')){
+                    navLinksContainer.classList.remove('active');
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e){
+                    e.preventDefault();
+                    const pageId = this.getAttribute('data-page');
+                    setActivePage(pageId);
+                });
+            });
+
+            hamburger.addEventListener('click', ()=> navLinksContainer.classList.toggle('active'));
+
+            const contactForm = document.getElementById('contactForm');
+            if(contactForm){
+                contactForm.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    alert('Pesan telah berhasil dikirim!');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
